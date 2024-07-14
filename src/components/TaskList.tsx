@@ -17,7 +17,8 @@ const TaskList: React.FC = () => {
         fetchTasks();
     }, [token]);
 
-    const handleCreateTask = async () => {
+    const handleCreateTask = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         if (token && newTask) {
             const createdTask = await createTask(newTask, token);
             setTasks([...tasks, createdTask]);
@@ -41,21 +42,22 @@ const TaskList: React.FC = () => {
 
     return (
         <div className="space-y-4">
-            <div className="flex space-x-2">
+            <form className="flex space-x-2" onSubmit={e => handleCreateTask(e)}>
                 <input
                     type="text"
                     value={newTask}
                     onChange={(e) => setNewTask(e.target.value)}
+                    required
                     className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
                 <button
-                    onClick={handleCreateTask}
+                    type='submit'
                     data-testid="add"
                     className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Add
                 </button>
-            </div>
+            </form>
             <ul id="todo-list">
                 {tasks.map(task => (
                     <li key={task._id} className="flex justify-between items-center bg-gray-100 m-1 rounded-sm pl-2">
