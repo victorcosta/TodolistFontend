@@ -50,6 +50,7 @@ const TaskList: React.FC = () => {
                 />
                 <button
                     onClick={handleCreateTask}
+                    data-testid="add"
                     className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Add
@@ -62,11 +63,13 @@ const TaskList: React.FC = () => {
                         <div className="space-x-2">
                             <button
                                 onClick={() => handleUpdateTask(task._id, task.title, !task.completed)}
+                                data-testid={`update-${task._id}`}
                                 className="py-1 px-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-indigo-300 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                                 {task.completed ? 'Undo' : 'Complete'}
                             </button>
                             <button
+                                data-testid={`delete-${task._id}`}
                                 onClick={() => handleDeleteTask(task._id)}
                                 className="py-1 px-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-red-400 hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                             >
